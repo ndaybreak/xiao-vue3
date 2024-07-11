@@ -16,6 +16,19 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
+    },
+    {
+      path: '/lerning',
+      name: 'lerning',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/LerningView.vue')
+    },
+    {
+      path: '/lerning-comp',
+      name: 'lerning-comp',
+      component: () => import('../views/LerningComponentView.vue')
     }
   ]
 })
