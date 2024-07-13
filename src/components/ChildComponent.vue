@@ -13,6 +13,13 @@ import { USER_KEY } from '@/constants/provideKeys'
 import { inject, useAttrs } from 'vue'
 const attrs = useAttrs()
 
+// const p = new Promise((resolve) => {
+//   resolve(1)
+// })
+
+// const pVal = await p
+// console.log(111, pVal)
+
 // 一个组件需要显式声明它所接受的 props，这样 Vue 才能知道外部传入的哪些是 props，哪些是透传 attribute
 defineProps<{
   childMsg?: string | number

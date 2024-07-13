@@ -5,6 +5,13 @@ import { defineAsyncComponent, provide, ref } from 'vue'
 // import ChildComp from '../components/ChildComponent.vue'
 import { USER_KEY } from '@/constants/provideKeys'
 
+// const p = new Promise((resolve) => {
+//   resolve(1)
+// })
+
+// const pVal = await p
+// console.log(111, pVal)
+
 const post = {
   id: 1,
   title: 'My Journey with Vue'
@@ -22,12 +29,19 @@ const lastName = ref('')
 provide(USER_KEY, ref('xiao'))
 
 const AsyncChildComponent = defineAsyncComponent(() => import('../components/ChildComponent.vue'))
+
+// lazy.js 及其依赖会被拆分到一个单独的文件中
+// 并只在 `loadLazy()` 调用时才加载
+// function loadLazy() {
+//   return import('./lazy.js')
+// }
 </script>
 
 <template>
   <div class="xiao-comp">
     <h1>This is an comp page</h1>
     <!-- 虽然 `42` 是个常量，我们还是需要使用 v-bind, 因为这是一个 JavaScript 表达式而不是一个字符串 -->
+    <!-- <Suspense> -->
     <AsyncChildComponent
       :child-msg="42"
       @some-event="eventCb"
@@ -49,6 +63,8 @@ const AsyncChildComponent = defineAsyncComponent(() => import('../components/Chi
       <template v-slot:left="leftProps"> left slot({{ leftProps.text }}) </template>
       <template v-slot:right> right slot </template>
     </AsyncChildComponent>
+    <!-- </Suspense> -->
+
     <span>{{ model }}</span>
     <span>{{ firstName }}</span>
     <span>{{ lastName }}</span>
@@ -58,6 +74,7 @@ const AsyncChildComponent = defineAsyncComponent(() => import('../components/Chi
   </div>
 </template>
 
+<!-- SFC 中的 <style> 标签一般会在开发时注入成原生的 <style> 标签以支持热更新，而生产环境下它们会被抽取、合并成单独的 CSS 文件。 -->
 <style>
 @media (min-width: 1024px) {
   .xiao-comp {
