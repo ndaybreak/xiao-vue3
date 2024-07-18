@@ -9,7 +9,17 @@ import router from './router'
 // 每个 Vue 应用都是通过 createApp 函数创建一个新的 应用实例：
 const app = createApp(App)
 
-app.use(createPinia())
+// 因为状态管理使用的是setup的方式构建所以我们重写一个$reset并挂载到pinia中,否则在使用reset时会报错
+// Error: 🍍: Store "counter" is built using the setup syntax and does not implement $reset().
+const pinia = createPinia()
+pinia.use(({ store }) => {
+  const initialState = JSON.parse(JSON.stringify(store.$state))
+  store.$reset = () => {
+    store.$patch(initialState)
+  }
+})
+
+app.use(pinia)
 app.use(router)
 
 // 应用实例会暴露一个 .config 对象允许我们配置一些应用级的选项，例如定义一个应用级的错误处理器，用来捕获所有子组件上的错误：

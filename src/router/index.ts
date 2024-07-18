@@ -29,6 +29,11 @@ const router = createRouter({
       path: '/lerning-comp',
       name: 'lerning-comp',
       component: () => import('../views/LerningComponentView.vue')
+    },
+    {
+      path: '/lerning-store',
+      name: 'lerning-store',
+      component: () => import('../views/LerningStoreView.vue')
     }
   ]
 })
